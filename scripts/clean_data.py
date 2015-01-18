@@ -42,37 +42,10 @@ def clean_data_batched(config, output_collection=None, batch_size=1000):
 
     while (True):
         config['query_config']['skip'] = count * batch_size
-        data.append(clean_data(config, output_collection))
+        batch_data = clean_data(config, output_collection)
         count += 1
 
+        if output_collection is None:
+            data.append(batch_data)
+
     return data
-
-
-
-config = {
-    'db_config':    get_default_db_config(),
-    'query_config': {
-        'collection':   'rawdata_20141119',
-        'query':        {
-            'lang':     'en'
-        },
-        'fields':       {
-            'text':     True,
-            'id_str':   True
-        },
-        'limit_to':     None
-    }
-}
-
-data = clean_data(config)
-
-print 'cleaned %s rows of data' % str(len(data))
-
-
-
-
-# conn = MongoClient(host='localhost', port=27017)
-# db = conn['ebodata']
-# collection = db.cleaned_data_20141119
-
-# collection.insert(cleaned_data)

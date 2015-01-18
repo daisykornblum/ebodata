@@ -69,21 +69,13 @@ def _get_cursor(config, all_fields=False):
     return cursor
 
 
+
+
 def get_iterable(config):
     """ Read from Mongo and return iterable cursor """
 
     return _get_cursor(config)
 
-
-def get_dataframe(config):
-    """ Read from Mongo and Store into DataFrame """
-
-    cursor = _get_cursor(config)
-
-    # Expand the cursor and construct the DataFrame
-    df =  pd.DataFrame(list(cursor))
-
-    return df
 
 
 def save_collection(config, collection_name, data):
@@ -99,6 +91,7 @@ def save_collection(config, collection_name, data):
     return collection.insert(data)
 
 
+
 def update_collection(config, update_query):
     """ Update collection field """
 
@@ -110,3 +103,32 @@ def update_collection(config, update_query):
     db = _connect_mongo(host=db_config['host'], port=db_config['port'], username=db_config['username'], password=db_config['password'], db=db_config['db'])
 
     return db[query_config['collection']].update(query_config['query'], update_query)
+
+
+
+def move_collection(config, collection_name):
+    """ Move matching documents into new collection so they're not processed again """
+
+    configs = _process_configs(config)
+    db_config = configs['db_config']
+    query_config = configs['query_config']
+
+    # Connect to MongoDB
+    db = _connect_mongo(host=db_config['host'], port=db_config['port'], username=db_config['username'], password=db_config['password'], db=db_config['db'])
+
+    cursor = db[query_config['collection']].find(query_config['query'])
+
+    save_collection(config, collection_name, list(cursor))
+    db[query_config['collection']].remove(query_config['query'])
+
+
+
+def get_dataframe(config):
+    """ Read from Mongo and Store into DataFrame """
+
+    cursor = _get_cursor(config)
+
+    # Expand the cursor and construct the DataFrame
+    df =  pd.DataFrame(list(cursor))
+
+    return df
