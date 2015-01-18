@@ -33,7 +33,7 @@ def clean_data(config, output_collection=None):
 
 
 
-def clean_data_batched(config, batch_size=1000, output_collection=None):
+def clean_data_batched(config, output_collection=None, batch_size=1000):
     count = 0
     data = []
 
