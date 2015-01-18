@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pandas as pd
 from pymongo import MongoClient
 
@@ -14,17 +15,17 @@ def _connect_mongo(host, port, username, password, db):
 
 
 def _process_configs(configs):
-    configs['db_config']['host'] = 'localhost' if not configs['db_config']['host']
-    configs['db_config']['port'] = 27017 if not configs['db_config']['port']
-    configs['db_config']['username'] = None if not configs['db_config']['username']
-    configs['db_config']['password'] = None if not configs['db_config']['password']
-    configs['db_config']['db'] = None if not configs['db_config']['db']
+    configs['db_config']['host'] = 'localhost' if configs['db_config']['host'] is None
+    configs['db_config']['port'] = 27017 if configs['db_config']['port'] is None
+    # configs['db_config']['username'] = None if not configs['db_config']['username']
+    # configs['db_config']['password'] = None if not configs['db_config']['password']
+    # configs['db_config']['db'] = None if not configs['db_config']['db']
 
-    configs['query_config']['collection']= None if not configs['query_config']['collection']
-    configs['query_config']['query']= {} if not configs['query_config']['query']
-    configs['query_config']['fields']= None if not configs['query_config']['fields']
-    configs['query_config']['skip']= None if not configs['query_config']['skip']
-    configs['query_config']['limit_to']= None if not configs['query_config']['limit_to']
+    # configs['query_config']['collection']= None if not configs['query_config']['collection']
+    configs['query_config']['query'] = {} if configs['query_config']['query'] is None
+    # configs['query_config']['fields']= None if not configs['query_config']['fields']
+    # configs['query_config']['skip']= None if not configs['query_config']['skip']
+    # configs['query_config']['limit_to']= None if not configs['query_config']['limit_to']
 
     return configs
 

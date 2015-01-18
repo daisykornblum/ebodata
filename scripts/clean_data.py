@@ -1,4 +1,5 @@
-import DB_CONF from config
+# -*- coding: utf-8 -*-
+from config import DB_CONF
 from db import get_dataframe, save_collection
 import clean_regexes as regx
 

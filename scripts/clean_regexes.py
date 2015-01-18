@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 
 """Set up regular expressions for parts of sentences to strip"""
