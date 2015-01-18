@@ -50,7 +50,7 @@ def clean_data_batched(config, output_collection=None, batch_size=1000):
 
 
 config = {
-    'db_config':    DB_CONF,
+    'db_config':    get_default_db_config(),
     'query_config': {
         'collection':   'rawdata_20141119',
         'query':        {

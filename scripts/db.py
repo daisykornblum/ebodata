@@ -15,22 +15,32 @@ def _connect_mongo(host, port, username, password, db):
 
 
 def _process_configs(configs):
-    if not hasattr(configs, 'db_config'):
+    if not 'db_config' in configs:
         configs['db_config'] = {}
-    if not hasattr(configs, 'query_config'):
+    if not 'query_config' in configs:
         configs['query_config'] = {}
 
-    configs['db_config']['host'] = 'localhost' if not hasattr(configs['db_config'], 'host')
-    configs['db_config']['port'] = 27017 if not hasattr(configs['db_config'], 'port')
-    configs['db_config']['username'] = None if not hasattr(configs['db_config'], 'username')
-    configs['db_config']['password'] = None if not hasattr(configs['db_config'], 'password')
-    configs['db_config']['db'] = None if not hasattr(configs['db_config'], 'db')
+    if not 'host' in configs['db_config']:
+        configs['db_config']['host'] = 'localhost'
+    if not 'port' in configs['db_config']:
+        configs['db_config']['port'] = 27017
+    if not 'username' in configs['db_config']:
+        configs['db_config']['username'] = None
+    if not 'password' in configs['db_config']:
+        configs['db_config']['password'] = None
+    if not 'db' in configs['db_config']:
+        configs['db_config']['db'] = ''
 
-    configs['query_config']['collection'] = None if not hasattr(configs['query_config'], 'collection')
-    configs['query_config']['query'] = {} if not hasattr(configs['query_config'], 'query')
-    configs['query_config']['fields'] = None if not hasattr(configs['query_config'], 'fields')
-    configs['query_config']['skip'] = None if not hasattr(configs['query_config'], 'skip')
-    configs['query_config']['limit_to'] = None if not hasattr(configs['query_config'], 'limit_to')
+    if not 'collection' in configs['query_config']:
+        configs['query_config']['collection'] = None
+    if not 'query' in configs['query_config']:
+        configs['query_config']['query'] = {}
+    if not 'fields' in configs['query_config']:
+        configs['query_config']['fields'] = None
+    if not 'skip' in configs['query_config']:
+        configs['query_config']['skip'] = None
+    if not 'limit_to' in configs['query_config']:
+        configs['query_config']['limit_to'] = None
 
     return configs
 

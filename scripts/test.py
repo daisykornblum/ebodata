@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from config import DB_CONF
+from config import get_default_db_config
 from db import get_dataframe, save_collection
 import clean_regexes as regx
 
@@ -31,7 +31,7 @@ def test_db_batched(config, output_collection=None, batch_size=1000):
 
 
 config = {
-    'db_config':    DB_CONF,
+    'db_config':    get_default_db_config(),
     'query_config': {
         'collection':   'rawdata_20141119',
         'query':        {
